@@ -9,6 +9,26 @@ body {
 	clear:both;
 }
 
+#cover{
+	position:fixed;
+	z-index: 1000;
+	display: none;
+	1display: table;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	color: red;
+	text-align: center;
+}
+
+#coverLogo{
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 20px;
+}
+
 ul
 {
 	float:left;
@@ -29,18 +49,6 @@ li img {
     width: 100%;
     height: 100%;
     position: relative;
-}
-
-#info {
-	margin: 65px auto 0;
-	color: #a6a6a6;
-	font-size: 12px;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
-	text-align: center;
-}
-
-#info a {
-	color: inherit;
 }
 
 

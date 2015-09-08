@@ -1,30 +1,31 @@
 var ImageDisposer = {
-	boardWidth : 1300,
-	boardHeightMax : 200,
-	imageMargin : 5,
+	boardWidth : 0,
+	boardHeightMax : 0,
+	imageMargin : 0,
 	imageCount : 0,
-	
+
 	init : function(){
-		this.disposeImages();
+		this.disposeImages($("#board li"), 1700, 250, 3);
 	},
-	
-	disposeImages : function(){
-		/*  1. boardHeightMax에 입력한 '세로 길이의 최대치'로 모든 이미지의 세로 길이를 맞춘다.(이미지 비율 유지)
-		*   2. 
-		*
-		*
-		*
-		*
-		*
-		*
-		*/
-		//this.makeEveryImageHaveSameHeight($("#board li"), this.boardHeightMax);
-		var board = $("#board li");
+
+	/*	
+	 *	1. boardHeightMax에 입력한 '세로 길이의 최대치'로 모든 이미지의 세로 길이를 맞춘다.(이미지 비율 유지)
+	 *	2. 세로 길이를 맞춘 이미지들의 가로 길이 합+ 그 사이의 마진 길이 합 을 더해서 설정한 가로길이를 넘게 되는 순간을 카운트한다.
+	 *	3. 카운트 된 이미지의 다음 이미지를 줄바꿈한다.
+	 *	4. 줄바꿈하기 전 첫줄(카운트 되기 전까지의 이미지들 + 마진) 의 비율을 설정한 가로길이에 맞춘다.
+	 *	5. 다음줄부터(카운트 된 이미지의 다음 이미지) 1 ~ 4를 반복한다. (마지막 이미지까지)
+	 */
+	disposeImages : function(jqElement, boardWidth, boardHeightMax, imageMargin){ 
+		this.boardWidth = boardWidth;
+		this.boardHeightMax = boardHeightMax;
+		this.imageMargin = imageMargin;
+
+		var board = jqElement;
 		var imageSize = board.length;
-		while(this.imageCount < imageSize) {
-			this.makeEveryImageHaveSameHeight(board, this.boardHeightMax, this.imageCount);
-			this.makeBoardWidthFit(board, this.boardWidth, this.imageMargin, this.imageCount);
-			console.log("imageCount:"+this.imageCount);
+		while(this.imageCount < imageSize) {                                                    // 5
+			this.makeEveryImageHaveSameHeight(board, this.boardHeightMax, this.imageCount);     // 1
+			this.makeBoardWidthFit(board, this.boardWidth, this.imageMargin, this.imageCount);  // 2 ~ 4
+			console.log("Line changing imageCount:"+this.imageCount);
 		}
 	},
 
@@ -66,8 +67,6 @@ var ImageDisposer = {
 
 		var ratio = ( widthPx - (marginPx * count) )/ widthSumWithoutMargin;
 
-		console.log(ratio);
-
 		elementsList.each(function(index){
 			var jqElement = $(this);
 			if (index >= initialCount && index < initialCount + count) {
@@ -83,11 +82,39 @@ var ImageDisposer = {
 
 }
 
+var Cover = {
+	init : function(){
+		//this.coverUp();
+		this.removeCover();
+	},
+
+	removeCover : function(){
+		var jCover = $('#cover');	
+		jCover.css( "display", 'none');
+	},
+
+	coverUp : function(){
+		var jCover = $('#cover');		
+		var i = 0;
+		animation();
+		function animation() {
+			if (i > 10) {
+				jCover.css( "display", 'none');
+				return;
+			} else {
+				jCover.css( 'opacity', 1-i*0.1);
+				i++;
+			}
+			requestAnimationFrame(animation);
+		}			
+	}
+}
 
 
-
-
-
+window.addEventListener("load", function() {
+	ImageDisposer.init();	
+	//Cover.init();	
+}, false);
 
 
 
@@ -316,6 +343,4 @@ var TODOSync = {
 	}
 }
 
-window.addEventListener("load", function() {	
-	ImageDisposer.init();	
-}, false);
+
