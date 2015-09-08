@@ -19,11 +19,11 @@ var ImageDisposer = {
 		*
 		*/
 		//this.makeEveryImageHaveSameHeight($("#board li"), this.boardHeightMax);
-
-		var imageSize = $("#board li").length;
+		var board = $("#board li");
+		var imageSize = board.length;
 		while(this.imageCount < imageSize) {
-			this.makeEveryImageHaveSameHeight($("#board li"), this.boardHeightMax, this.imageCount);
-			this.makeBoardWidthFit($("#board li"), this.boardWidth, this.imageMargin, this.imageCount);
+			this.makeEveryImageHaveSameHeight(board, this.boardHeightMax, this.imageCount);
+			this.makeBoardWidthFit(board, this.boardWidth, this.imageMargin, this.imageCount);
 			console.log("imageCount:"+this.imageCount);
 		}
 	},
@@ -33,8 +33,6 @@ var ImageDisposer = {
 			if (index >= initialCount) {
 				ImageDisposer.rescaleElementWithHeight(this, heightPx);
 			}
-			console.log("asdas:"+index);
-			console.log("aasdasdass:"+initialCount);
 		});
 	},
 
@@ -43,8 +41,6 @@ var ImageDisposer = {
 		var elementHeight = jqElement.outerHeight();
 		var elementWidth = jqElement.outerWidth();
 		var ratio = elementWidth/elementHeight;
-		
-		console.log("sdaasdratio:"+ratio);
 
 		jqElement.height(heightPx);
 		jqElement.width(heightPx * ratio);
@@ -53,11 +49,10 @@ var ImageDisposer = {
 	makeBoardWidthFit : function(elementsList, widthPx, marginPx, initialCount){
 		var widthSum = 0;
 		var widthSumWithoutMargin = 0;
-		var imageCountInitialPoint = initialCount;
 		var count = 0;
 
 		elementsList.each(function(index){
-			if (widthSum < widthPx) {
+			if (index >= initialCount && widthSum < widthPx) {
 				widthSum = widthSum + $(this).outerWidth() + marginPx;
 				widthSumWithoutMargin = widthSumWithoutMargin + $(this).outerWidth();
 				ImageDisposer.imageCount++;
@@ -67,7 +62,7 @@ var ImageDisposer = {
 			}
 		});
 
-		$(elementsList[imageCountInitialPoint+count]).addClass('lineChange');
+		$(elementsList[initialCount+count]).addClass('lineChange');
 
 		var ratio = ( widthPx - (marginPx * count) )/ widthSumWithoutMargin;
 
@@ -75,7 +70,7 @@ var ImageDisposer = {
 
 		elementsList.each(function(index){
 			var jqElement = $(this);
-			if (index >= imageCountInitialPoint && index < imageCountInitialPoint+count) {
+			if (index >= initialCount && index < initialCount + count) {
 				jqElement.height(jqElement.outerHeight() * ratio);
 				jqElement.width(jqElement.outerWidth() * ratio);
 				jqElement.css('margin-right', marginPx);
