@@ -54,37 +54,36 @@ var ImageDisposer = {
 		var widthSum = 0;
 		var widthSumWithoutMargin = 0;
 		var imageCountInitialPoint = initialCount;
-		var count1 = 0;
-		var count2 = 0;
+		var count = 0;
 
-		if (count2 >= imageCountInitialPoint && count2 < imageCountInitialPoint+count1) {
-			elementsList.each(function(index){
-				if (widthSum < widthPx) {
-					widthSum = widthSum + $(this).outerWidth() + marginPx;
-					widthSumWithoutMargin = widthSumWithoutMargin + $(this).outerWidth();
-					ImageDisposer.imageCount++;
-					count1++;
-					count2++;
-				} else {
-					return;
-				}
-			});
+		elementsList.each(function(index){
+			if (widthSum < widthPx) {
+				widthSum = widthSum + $(this).outerWidth() + marginPx;
+				widthSumWithoutMargin = widthSumWithoutMargin + $(this).outerWidth();
+				ImageDisposer.imageCount++;
+				count++;
+			} else {
+				return;
+			}
+		});
 
-			$(elementsList[imageCountInitialPoint+count]).addClass('lineChange');
+		$(elementsList[imageCountInitialPoint+count]).addClass('lineChange');
 
-			var ratio = ( widthPx - (marginPx * count) )/ widthSumWithoutMargin;
+		var ratio = ( widthPx - (marginPx * count) )/ widthSumWithoutMargin;
 
-			elementsList.each(function(index){
-				var jqElement = $(this);
-			
+		console.log(ratio);
+
+		elementsList.each(function(index){
+			var jqElement = $(this);
+			if (index >= imageCountInitialPoint && index < imageCountInitialPoint+count) {
 				jqElement.height(jqElement.outerHeight() * ratio);
 				jqElement.width(jqElement.outerWidth() * ratio);
 				jqElement.css('margin-right', marginPx);
 				jqElement.css('margin-bottom', marginPx);
-			});
-		} else {
-			return;
-		}
+			} else {
+				return;
+			}
+		});
 	} 
 
 }
