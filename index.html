@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" data-framework="javascript">
+	<head>
+		<meta charset="utf-8">
+		<title>HTML5 Programming - 1 Class</title>
+		<link rel="stylesheet" href="css/index.css">
+		
+	</head>
+	<body>
+		<ul id="board">
+			<li>
+				<img src="resource/1.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/2.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/3.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/4.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/5.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/6.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/7.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/8.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/9.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/10.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/11.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/12.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/13.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/14.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/15.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/16.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/17.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/18.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/19.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/20.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/21.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/22.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/23.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/24.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/25.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/26.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/27.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/28.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/29.jpg"></img>
+			</li>
+			<li>
+				<img src="resource/30.jpg"></img>
+			</li>
+		</ul>
+		<script type="text/javascript" src="js/imageDisposer.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.js"></script>
+		<script id="addListElements" type="text/x-handlebars-template">
+		  	<li data-key="{{key}}" class="{{class}}">
+				<div class="view">
+					<input class="toggle" type="checkbox" {{checked}}>
+					<label>{{text}}</label>
+					<button class="destroy"></button>
+				</div>
+			</li>
+		</script>
+	</body>
+</html>
