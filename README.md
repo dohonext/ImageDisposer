@@ -11,13 +11,13 @@
 - 서버에서 JSON파일을 받아서 화면에 렌더링 
 - 사진을 클릭하면 큰 화면으로 보여주기 (전체화면)  
   
-### WEEK 1
+### WEEK 1 : DONE
 - 기본 페이지 생성  
 - 하위 디렉토리에 있는 사진 10여장을 화면비율과 상관없이 일정 너비로 2줄로 배치해보기  
   (이미지를 배열하는 핵심 로직 완성.)  
 - 사용 스펙: JQuery  
   
-### WEEK 2
+### WEEK 2 
 - 애니메이션 사용하여 사진을 순차적 혹은 동시적(여러 효과)로 렌더링하기
 - 사용 스펙: Transiton, Transform, RequestAnimationFrame  
   
@@ -25,7 +25,7 @@
 - 서버에서 JSON 파일을 받아서 화면에 렌더링하기(템플릿 사용), API 연동  
 - 사용 스펙: Promise, XMLHttpRequest(CORS), Template(아마도 Handlebars)  
   
-### WEEK 4
+### WEEK 4 : DONE
 - 화면 사이즈 대응 
 - 변수로 받아 여러 부분 커스터마이징 할 수 있도록 옵션 추가 
 - 사용 스펙: CSS MediaQuery, JQuery
