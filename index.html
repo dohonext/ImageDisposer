@@ -1,123 +1,254 @@
 <!doctype html>
 <html lang="en" data-framework="javascript">
 	<head>
-		<meta charset="utf-8">
-		<title>HTML5 Programming - 1 Class</title>
-		<link rel="stylesheet" href="css/index.css">
-		
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>PhotoShake</title>
+		<link rel="stylesheet" href="css/index.css" media="screen" type="text/css"/>	
 	</head>
 	<body>
-		<ul id="board">
-			<li id='post_1'>
-				<img src="resource/1.jpg"></img>
-				<div class='imgInfo'>
-					<div class='subject'>Hello World!</div>
-					<div class='author'>Denis Rich</div>
-				</div>
-			</li>
-			<li>
-				<img src="resource/2.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/3.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/4.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/5.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/6.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/7.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/8.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/9.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/10.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/11.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/12.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/13.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/14.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/15.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/16.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/17.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/18.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/19.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/20.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/21.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/22.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/23.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/24.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/25.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/26.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/27.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/28.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/29.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/30.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/31.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/32.jpg"></img>
-			</li>
-			<li>
-				<img src="resource/33.jpg"></img>
-			</li>
-		</ul>
-		<div id="cover">
-			<div id="coverLogo">Loading...</div>
-		<div>
-		<script type="text/javascript" src="js/imageDisposer.js"></script>
+		<div id="main">
+			<div class="content_subject">
+    			<div class="content_subject_left">BEST</div>
+    			<div class="content_subject_right">SeeMore</div>
+  			</div>
+			<ul class="content" id="best_content">
+				<li class="posting">
+					<img src="resource/1.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/2.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/3.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/4.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/5.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/6.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/7.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/8.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/9.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/10.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/11.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+      			<li class="posting">
+					<img src="resource/23.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/24.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>	
+				</li>
+			</ul>
+			<div id="blank"></div>
+			<div class="content_subject">
+    			<div class="content_subject_left">NEWEST</div>
+    			<div class="content_subject_right">SeeMore</div>
+    			<div id="new_content_upload">Upload</div>
+  			</div>
+			<ul class="content" id="newest_content">
+				<li class="posting">
+					<img src="resource/12.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/13.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/14.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/15.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/16.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/17.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/18.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/19.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/20.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/21.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+				<li class="posting">
+					<img src="resource/22.jpg"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">The Subject blah yeah</span>
+       					<span class="posting_author">Author Lee Doho</span>
+      				</div>
+				</li>
+			</ul>
+		</div>
+
+
+		
+		<div id="topbar">  
+	  		<div id="topbar_frame"></div>
+	  		<div id="topbar_contain">
+	    		<div id="logo">PhotoShake</div>
+		    	<div id="signin">SignIn</div>
+		    	<div id="signup">SignUp</div>
+		    	<div id="signin_full">
+				    <span>Sign In</span>
+				    <input placeholder="ID" />
+				    <input placeholder="PASSWORD" />
+				    <div class="signin_buttons" id="cancel1">Cancel</div>
+			      	<div class="signin_buttons">Submit</div>
+			    </div>
+			    <div id="signup_full">
+			      	<span>Sign Up</span>
+			      	<input placeholder="ID" />
+			     	<input placeholder="PASSWORD" />
+			      	<input placeholder="PASSWORD(REPEAT)" />
+			      	<div class="signup_buttons" id="cancel2"><span>Cancel</span></div>
+			      	<div class="signup_buttons"><span>Submit</span></div>
+			    </div>
+			</div>
+		</div>
+
+
+
+
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.js"></script>
+		<script type="text/javascript" src="js/imageDisposerFunctionBase.js"></script>
 		<script id="addListElements" type="text/x-handlebars-template">
 		  	<li data-key="{{key}}" class="{{class}}">
 				<div class="view">
@@ -126,6 +257,14 @@
 					<button class="destroy"></button>
 				</div>
 			</li>
+			<li data-postingId="{{postingId}}" data-postingLike="{{postingLike}}"  class="posting">
+					<img src="{{postingPic}}"></img>
+					<div class="posting_subject_filter"></div>
+      				<div class="posting_subject_container">
+       					<span class="posting_subject">{{postingSubject}}</span>
+       					<span class="posting_author">{{userNickname}}</span>
+      				</div>
+				</li>
 		</script>
 	</body>
 </html>

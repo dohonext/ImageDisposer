@@ -2,10 +2,12 @@ var ImageDisposer = {
 	boardWidth : 0,
 	boardHeightMax : 0,
 	imageMargin : 0,
+	lineLimit : 0,
 	imageCount : 0,
+	lineCount : 0,
 
-	init : function(){
-		this.disposeImages($("#board li"), 1700, 250, 3);
+	init : function(jqElement, boardWidth, boardHeightMax, imageMargin){
+		this.disposeImages(jqElement, boardWidth, boardHeightMax, imageMargin);
 	},
 
 	/*	
@@ -27,9 +29,12 @@ var ImageDisposer = {
 			this.makeBoardWidthFit(board, this.boardWidth, this.imageMargin, this.imageCount);  // 2 ~ 4
 			console.log("Line changing imageCount:"+this.imageCount);
 		}
+		this.makeBoardVisibleAfterRendering(jqElement);
+		this.initVariablesAfterRendering();
 	},
 
 	makeEveryImageHaveSameHeight : function(elementsList, heightPx, initialCount){
+		console.log("func 1");
 		elementsList.each(function(index){
 			if (index >= initialCount) {
 				ImageDisposer.rescaleElementWithHeight(this, heightPx);
@@ -38,6 +43,7 @@ var ImageDisposer = {
 	},
 
 	rescaleElementWithHeight : function(element, heightPx){ 
+		console.log("func 2");
 		var jqElement = $(element);
 		var elementHeight = jqElement.outerHeight();
 		var elementWidth = jqElement.outerWidth();
@@ -48,6 +54,7 @@ var ImageDisposer = {
 	},
 
 	makeBoardWidthFit : function(elementsList, widthPx, marginPx, initialCount){
+		console.log("func 3");
 		var widthSum = 0;
 		var widthSumWithoutMargin = 0;
 		var count = 0;
@@ -78,8 +85,22 @@ var ImageDisposer = {
 				return;
 			}
 		});
-	} 
+	}, 
 
+	makeBoardVisibleAfterRendering : function(jqElement){
+		console.log("func 4");
+		jqElement.css('visibility', 'visible');
+	},
+
+	initVariablesAfterRendering : function(){
+		console.log("func 5");
+		this.boardWidth = 0;
+		this.boardHeightMax = 0;
+		this.imageMargin = 0;
+		this.lineLimit = 0;
+		this.imageCount = 0;
+		this.lineCount = 0;
+	}
 }
 
 var Cover = {
@@ -110,9 +131,13 @@ var Cover = {
 	}
 }
 
-
 window.addEventListener("load", function() {
-	ImageDisposer.init();	
+	var id1 = Object.create(ImageDisposer);
+	//var id2 = Object.create(ImageDisposer);
+	//ImageDisposer.init($("#board li"), 1700, 250, 3);
+	//ImageDisposer2.init($("#board li"), 1700, 250, 3);	
+	id1.init($("#board li"), 1700, 250, 3);
+	//id2.init($("#board2 li"), 1700, 250, 3);
 	//Cover.init();	
 }, false);
 
