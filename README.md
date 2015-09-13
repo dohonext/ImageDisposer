@@ -1,6 +1,6 @@
 # ImageDisposer
 
-![alt tag](https://github.com/dohonext/ImageDisposer/blob/master/Screen%20Shot%202015-09-11%20at%2013.45.37.png)
+![alt tag](https://github.com/dohonext/ImageDisposer/blob/master/Screen%20Shot%202015-09-14%20at%2001.27.45.png)
 
 ## 이미지를 화면에 배치하는 라이브러리입니다.
 - 이미지를 잘라내지 않고 고유의 비율을 유지하면서 여러장을 화면에 배치  
