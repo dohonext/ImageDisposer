@@ -20,7 +20,7 @@
 - 애니메이션 사용하여 사진을 순차적 혹은 동시적(여러 효과)로 렌더링하기
 - 사용 스펙: Transiton, Transform, RequestAnimationFrame  
   
-### WEEK 3
+### WEEK 3 : DONE
 - 서버에서 JSON 파일을 받아서 화면에 렌더링하기(템플릿 사용), API 연동  
 - 사용 스펙: Promise, XMLHttpRequest(CORS), Template(아마도 Handlebars)  
   
