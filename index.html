@@ -7,6 +7,14 @@
 		<link rel="stylesheet" href="css/index.css" media="screen" type="text/css"/>	
 	</head>
 	<body>
+		<!-- [[Posting Wideview]] -->
+		<div id="wideview">
+			<button id="closeWideview">X</button>
+			<div id="wideviewPicture">
+				
+			</div>
+		</div>
+		<!-- [[Main Content]] -->
 		<div id="main">
 			<div id="bestBox">
 				<div class="content_subject">
@@ -20,7 +28,7 @@
 				<div id="blank"></div>
 				<div class="content_subject">
 	    			<div class="content_subject_left" id="newest">NEWEST</div>
-	    			<div class="content_subject_right">SeeMore</div>
+	    			<div class="content_subject_right" id ="newestSeemore">SeeMore</div>
 	    			<div id="new_content_upload">Upload</div>
 	  			</div>
 				<ul class="content" id="newestposting">
@@ -52,8 +60,8 @@
 			</div>
 		</div>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.js"></script>
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<script src="js/handlebars-v3.0.3.js"></script>
 		<script type="text/javascript" src="js/imageDisposer.js"></script>
 		<!-- [[Template]]] -->
 		<script id="bestpostingTemplate" type="text/x-handlebars-template">

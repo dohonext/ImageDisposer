@@ -11,6 +11,7 @@ var PhotoShakeMain = {
 		this.addOnResizeWindowEvent();
 		this.addClickSignMenuEvent();
 		this.addClickLogoEvent();
+		this.addWideviewEvent();
 	},
 	
 	imageDisposer : function(jqElement, boardWidth, boardHeightMax, imageMargin, lineLimit){
@@ -147,7 +148,7 @@ var PhotoShakeMain = {
 
 	addClickLogoEvent : function (){  
 		$("#logo").click(function(){
-			var html = "<div id='bestBox'><div class='content_subject'><div class='content_subject_left' id='best'>BEST</div><div class='content_subject_right' id ='bestSeemore'>SeeMore</div></div><ul class='content' id='bestposting'></ul></div><div id='newestBox'><div id='blank'></div><div class='content_subject'><div class='content_subject_left' id='newest'>NEWEST</div><div class='content_subject_right'>SeeMore</div><div id='new_content_upload'>Upload</div></div><ul class='content' id='newestposting'></ul></div>";
+			var html = "<div id='bestBox'><div class='content_subject'><div class='content_subject_left' id='best'>BEST</div><div class='content_subject_right' id ='bestSeemore'>SeeMore</div></div><ul class='content' id='bestposting'></ul></div><div id='newestBox'><div id='blank'></div><div class='content_subject'><div class='content_subject_left' id='newest'>NEWEST</div><div class='content_subject_right' id ='newestSeemore'>SeeMore</div><div id='new_content_upload'>Upload</div></div><ul class='content' id='newestposting'></ul></div>";
 			$("#main").children().remove();
 			$("#main").append(html);
 			PhotoShakeMain.init();
@@ -183,6 +184,7 @@ var PhotoShakeMain = {
 				});
 			}
 			PhotoShakeMain.imageDisposer($("#bestposting"), $("body").width() - 55, 230, 5, 2);
+
 		})
 	},
 
@@ -202,11 +204,12 @@ var PhotoShakeMain = {
 				});
 			}
 			PhotoShakeMain.imageDisposer($("#newestposting"), $("body").width() - 55, 230, 5, 2);
+
 		})
 	},
 
 	seeMoreBestposting : function(){
-		$("#best").click(function() {
+		$("#best, #bestSeemore").click(function() {
 			$("#newestBox").remove();
 			$(".content_subject_right").remove();
 			$("#bestposting").children().remove();
@@ -226,12 +229,13 @@ var PhotoShakeMain = {
 				}
 				PhotoShakeMain.imageDisposer($("#bestposting"), $("body").width() - 55, 230, 5);
 			})
+
 			//TODO : 더보기 버튼 append 'GET?page=2,3,4...'
 		});
 	},
 
 	seeMoreNewestposting : function(){
-		$("#newest").click(function() {
+		$("#newest, #newestSeemore").click(function() {
 			$("#blank").remove();
 			$("#bestBox").remove();
 			$(".content_subject_right").remove();
@@ -252,7 +256,24 @@ var PhotoShakeMain = {
 				}
 				PhotoShakeMain.imageDisposer($("#newestposting"), $("body").width() - 55, 230, 5);
 			})
+			
 			//TODO : 더보기 버튼 append 'GET?page=2,3,4...'
+		});
+	},
+
+	addWideviewEvent : function(){
+		$("#main").on("click", "div  ul li", function(e) {  // 이렇게 이벤트 애드하면 어펜드 된 돔에도 이벤트 지속.
+			
+			//TODO : 데이터 받아서 어펜드 하는 부분 로직 추가(템플릿엔진 사용) 및 css 다듬기
+			var data = $(e.target.closest("li"));
+			
+
+			var html = "<img src='"+data.data("postingpic")+"'/>"
+			$("#wideviewPicture").append(html);
+			$("#wideview").css("display","block");
+		});
+		$("#wideview").on("click", "#closeWideview", function(){
+			$("#wideview").css("display","none");
 		});
 	}
 
