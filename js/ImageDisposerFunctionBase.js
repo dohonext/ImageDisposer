@@ -3,6 +3,8 @@
 
 var PhotoShakeMain = {
 	init : function(){
+		console.log("init");
+		this.getBestpostingForMainPage();
 		this.imageDisposer($("#best_content"), $("body").width() - 55, 230, 5, 2);
 		this.imageDisposer($("#newest_content"), $("body").width() - 55, 230, 5, 2);
 		this.addOnResizeWindowEvent();
@@ -11,7 +13,7 @@ var PhotoShakeMain = {
 	},
 	
 	imageDisposer : function(jqElement, boardWidth, boardHeightMax, imageMargin, lineLimit){
-		// If a variable 'lineLimit' is undefined, this function render all images.
+		// USAGE : If a variable 'lineLimit' is undefined, this function render all images.
 		var imageCount = 0;
 		var lineCount = 0;
 		var lineLimitPoint = 0;
@@ -36,7 +38,7 @@ var PhotoShakeMain = {
 		}
 
 		function makeImagesOverLineLimitDisplayNone(elementsList){
-			if (lineLimit === undefined) {        // If lineLimit is undefined, this function render all images.
+			if (lineLimit === undefined) {        // USAGE : If lineLimit is undefined, this function render all images.
 				return;
 			}
 			elementsList.each(function(index){
@@ -148,6 +150,32 @@ var PhotoShakeMain = {
 		$("#logo").click(function(){
 			window.location.replace('/');
 		});
+	},
+
+	appendWithTemplateEngine : function (template, elementToAppend, dataToBind) {
+		    		var source   = $(template).html();
+					var template = Handlebars.compile(source);
+					var templateData = dataToBind;
+
+					$(elementToAppend).append(template(templateData));	
+	},
+
+	getBestpostingForMainPage : function(){
+		console.log("1");
+		PhotoShakeAjax.getBestposting(function(json){
+			for (var element in json) {
+				this.appendWithTemplateEngine("#bestpostingTemplate", "#bestposting", { 
+					bestpostingid : element.bestpostingid, postingid : element.postingid,
+					postingsubject : element.postingsubject, postingtext : element.postingtext, 
+					postingpic : element.postingpic, postingview : element.postingview,
+					postinglike : element.postinglike, postinghate : element.postinghate, 
+					bestpostingtime : element.bestpostingtime, userid : element.userid,
+					useridname : element.useridname, usernickname : element.usernickname,
+					userprofile : element.userprofile, userprofilepic : element.userprofilepic,
+					userlevel : element.userlevel, userexp : element.userexp
+				});
+			}
+		})
 	}
 }
 
@@ -157,15 +185,23 @@ var PhotoShakeAjax = {
 	init : function(){
 		
 	},
-	
-	get : function(callback){
+
+	xhr : function(callback, method, url, aSync, postString){
+		console.log("3");
+		var ajaxMethod = "\""+method+"\"";
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET", this.url+this.id, true);
+		xhr.open(ajaxMethod, url, aSync);
 		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
 		xhr.addEventListener("load",function(e) {
 			callback(JSON.parse(xhr.responseText));
 		});
-		xhr.send();
+		xhr.send(postString);
+	},
+
+	getBestposting : function(callback){
+		console.log("2");
+		var APIUrl = "bestposting";
+		this.xhr(callback, GET, url+APIUrl, true);
 	},
 
 	add : function(todo, callback){

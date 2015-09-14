@@ -3,23 +3,24 @@
 
 var PhotoShakeMain = {
 	init : function(){
-		this.imageDisposer($("#best_content"), $("body").width() - 55, 230, 5, 2);
-		this.imageDisposer($("#newest_content"), $("body").width() - 55, 230, 5, 2);
+		this.getMainPage();
+		this.seeMoreBestposting();
+		this.seeMoreNewestposting();
+		//this.imageDisposer($("#bestposting"), $("body").width() - 55, 230, 5, 2);
+		//this.imageDisposer($("#newestposting"), $("body").width() - 55, 230, 5, 2);
 		this.addOnResizeWindowEvent();
 		this.addClickSignMenuEvent();
 		this.addClickLogoEvent();
 	},
 	
 	imageDisposer : function(jqElement, boardWidth, boardHeightMax, imageMargin, lineLimit){
-		// If a variable 'lineLimit' is undefined, this function render all images.
+		// USAGE : If a variable 'lineLimit' is undefined, this function render all images.
 		var imageCount = 0;
 		var lineCount = 0;
 		var lineLimitPoint = 0;
 
 		var board = jqElement.children();
-		
 		disposeImages(board, boardWidth, boardHeightMax, imageMargin, lineLimit);
-
 		function disposeImages(jqBoard, boardWidth, boardHeightMax, imageMargin, lineLimit){
 			var imageSize = jqBoard.length;
 			while(imageCount < imageSize) {                                                   
@@ -36,7 +37,7 @@ var PhotoShakeMain = {
 		}
 
 		function makeImagesOverLineLimitDisplayNone(elementsList){
-			if (lineLimit === undefined) {        // If lineLimit is undefined, this function render all images.
+			if (lineLimit === undefined) {        // USAGE : If lineLimit is undefined, this function render all images.
 				return;
 			}
 			elementsList.each(function(index){
@@ -144,28 +145,145 @@ var PhotoShakeMain = {
 	  },  false);
 	},
 
-	addClickLogoEvent : function (){  //WARNING : This doesn't work on localhost.
+	addClickLogoEvent : function (){  
 		$("#logo").click(function(){
-			window.location.replace('/');
+			var html = "<div id='bestBox'><div class='content_subject'><div class='content_subject_left' id='best'>BEST</div><div class='content_subject_right' id ='bestSeemore'>SeeMore</div></div><ul class='content' id='bestposting'></ul></div><div id='newestBox'><div id='blank'></div><div class='content_subject'><div class='content_subject_left' id='newest'>NEWEST</div><div class='content_subject_right'>SeeMore</div><div id='new_content_upload'>Upload</div></div><ul class='content' id='newestposting'></ul></div>";
+			$("#main").children().remove();
+			$("#main").append(html);
+			PhotoShakeMain.init();
+		});
+	},
+
+	getMainPage : function(){
+		this.getBestposting();
+		this.getNewestposting();
+	},
+
+	appendWithTemplateEngine : function (template, elementToAppend, dataToBind) {
+		    		var source   = $(template).html();
+					var template = Handlebars.compile(source);
+					var templateData = dataToBind;
+
+					$(elementToAppend).append(template(templateData));	
+	},
+
+	getBestposting : function(){
+		PhotoShakeAjax.getBestposting(function(json){
+			
+			for (var i = 0; i < json.length ; i++) {
+				PhotoShakeMain.appendWithTemplateEngine("#bestpostingTemplate", "#bestposting", { 
+					bestpostingid : json[i].bestpostingid, postingid : json[i].postingid,
+					postingsubject : json[i].postingsubject, postingtext : json[i].postingtext, 
+					postingpic : json[i].postingpic, postingview : json[i].postingview,
+					postinglike : json[i].postinglike, postinghate : json[i].postinghate, 
+					bestpostingtime : json[i].bestpostingtime, userid : json[i].userid,
+					useridname : json[i].useridname, usernickname : json[i].usernickname,
+					userprofile : json[i].userprofile, userprofilepic : json[i].userprofilepic,
+					userlevel : json[i].userlevel, userexp : json[i].userexp
+				});
+			}
+			PhotoShakeMain.imageDisposer($("#bestposting"), $("body").width() - 55, 230, 5, 2);
+		})
+	},
+
+	getNewestposting : function(){
+		PhotoShakeAjax.getNewestposting(function(json){
+			
+			for (var i = 0; i < json.length ; i++) {
+				PhotoShakeMain.appendWithTemplateEngine("#newestpostingTemplate", "#newestposting", { 
+					postingid : json[i].postingid,
+					postingsubject : json[i].postingsubject, postingtext : json[i].postingtext, 
+					postingpic : json[i].postingpic, postingview : json[i].postingview,
+					postinglike : json[i].postinglike, postinghate : json[i].postinghate, 
+					postingtime : json[i].postingtime, userid : json[i].userid,
+					useridname : json[i].useridname, usernickname : json[i].usernickname,
+					userprofile : json[i].userprofile, userprofilepic : json[i].userprofilepic,
+					userlevel : json[i].userlevel, userexp : json[i].userexp
+				});
+			}
+			PhotoShakeMain.imageDisposer($("#newestposting"), $("body").width() - 55, 230, 5, 2);
+		})
+	},
+
+	seeMoreBestposting : function(){
+		$("#best").click(function() {
+			$("#newestBox").remove();
+			$(".content_subject_right").remove();
+			$("#bestposting").children().remove();
+			//TODO : best 옆에 " | newest" 버튼 id="#newest" 로 추가해주기
+			PhotoShakeAjax.getBestposting(function(json){
+				for (var i = 0; i < json.length ; i++) {
+					PhotoShakeMain.appendWithTemplateEngine("#bestpostingTemplate", "#bestposting", { 
+						bestpostingid : json[i].bestpostingid, postingid : json[i].postingid,
+						postingsubject : json[i].postingsubject, postingtext : json[i].postingtext, 
+						postingpic : json[i].postingpic, postingview : json[i].postingview,
+						postinglike : json[i].postinglike, postinghate : json[i].postinghate, 
+						bestpostingtime : json[i].bestpostingtime, userid : json[i].userid,
+						useridname : json[i].useridname, usernickname : json[i].usernickname,
+						userprofile : json[i].userprofile, userprofilepic : json[i].userprofilepic,
+						userlevel : json[i].userlevel, userexp : json[i].userexp
+					});
+				}
+				PhotoShakeMain.imageDisposer($("#bestposting"), $("body").width() - 55, 230, 5);
+			})
+			//TODO : 더보기 버튼 append 'GET?page=2,3,4...'
+		});
+	},
+
+	seeMoreNewestposting : function(){
+		$("#newest").click(function() {
+			$("#blank").remove();
+			$("#bestBox").remove();
+			$(".content_subject_right").remove();
+			$("#newestposting").children().remove();
+			//TODO : newest 옆에 " | bewest" 버튼 id="#best" 로 추가해주기
+			PhotoShakeAjax.getNewestposting(function(json){
+				for (var i = 0; i < json.length ; i++) {
+					PhotoShakeMain.appendWithTemplateEngine("#newestpostingTemplate", "#newestposting", { 
+						postingid : json[i].postingid,
+						postingsubject : json[i].postingsubject, postingtext : json[i].postingtext, 
+						postingpic : json[i].postingpic, postingview : json[i].postingview,
+						postinglike : json[i].postinglike, postinghate : json[i].postinghate, 
+						postingtime : json[i].postingtime, userid : json[i].userid,
+						useridname : json[i].useridname, usernickname : json[i].usernickname,
+						userprofile : json[i].userprofile, userprofilepic : json[i].userprofilepic,
+						userlevel : json[i].userlevel, userexp : json[i].userexp
+					});
+				}
+				PhotoShakeMain.imageDisposer($("#newestposting"), $("body").width() - 55, 230, 5);
+			})
+			//TODO : 더보기 버튼 append 'GET?page=2,3,4...'
 		});
 	}
+
 }
 
 var PhotoShakeAjax = {
-	url : "http://localhost:8000/",
+	url : "http://localhost:8000/photoshake/API/",
 	
 	init : function(){
 		
 	},
-	
-	get : function(callback){
+
+	xhr : function(callback, method, url, aSync, postString){
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET", this.url+this.id, true);
+		xhr.open(method, url, aSync);
 		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
+		//xhr.setRequestHeader("Access-Control-Allow-Origin","*");
 		xhr.addEventListener("load",function(e) {
 			callback(JSON.parse(xhr.responseText));
 		});
-		xhr.send();
+		xhr.send(postString);
+	},
+
+	getBestposting : function(callback){
+		var APIUrl = "bestposting";
+		this.xhr(callback, "GET", this.url+APIUrl, true);
+	},
+
+	getNewestposting : function(callback){
+		var APIUrl = "posting";
+		this.xhr(callback, "GET", this.url+APIUrl, true);
 	},
 
 	add : function(todo, callback){
