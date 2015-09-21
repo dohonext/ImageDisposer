@@ -23,11 +23,11 @@ body {
 	position: fixed;
 	width: 100%;
 	height: 100%;
-	opacity: 0.8;
+	1opacity: 0.8;
 	background-color: black;
 	z-index: 20000;
 	display: none;
-	overflow: scroll;
+	overflow: hidden;
 }
 
 #closeWideview{
@@ -41,17 +41,42 @@ body {
 
 #wideviewPicture{
 	position: absolute;
-	width: 1000px;
-	height: 300px;
-	background-color: red;
-	overflow: scroll;
+	top: 100px;
+	left : 100px;
+	width: 500px;
+	1height: auto;
+  max-height: 80%;
+	1background-color: red;
+	1overflow: scroll;
 	
 }
 
+
 #wideviewPicture img{
-	position: absolute;
-	opacity:1;
+	position: relative;
+	1opacity:1;
 	width:100%;
+	height: 100%;
+}
+
+#wideviewDetails {
+	position: absolute;
+	top: 100px;
+	left : 650px;
+	width: 500px;
+	height: auto;
+	font-size: 20px;
+	color: white;
+	1background-color: red;
+	1overflow: scroll;
+}
+
+#wideviewDetails span{
+	position: relative;
+	1opacity:1;
+	width:100%;
+	height: 100%;
+
 }
 
 /* [[Main Content]] */

@@ -11,8 +11,8 @@
 		<div id="wideview">
 			<button id="closeWideview">X</button>
 			<div id="wideviewPicture">
-				
 			</div>
+			<div id="wideviewDetails"></div>
 		</div>
 		<!-- [[Main Content]] -->
 		<div id="main">
@@ -42,27 +42,28 @@
 	    		<div id="logo">PhotoShake</div>
 		    	<div id="signin">SignIn</div>
 		    	<div id="signup">SignUp</div>
-		    	<div id="signin_full">
+		    	<form id="signin_full">
 				    <span>Sign In</span>
-				    <input placeholder="ID" />
-				    <input placeholder="PASSWORD" />
+				    <input type="text" name="userId" value placeholder="ID" />
+				    <input type="text" name="userPassword" value placeholder="PASSWORD" />
 				    <div class="signin_buttons" id="cancel1">Cancel</div>
-			      	<div class="signin_buttons">Submit</div>
-			    </div>
-			    <div id="signup_full">
+			      	<div class="signin_buttons" id="submit1">Submit</div>
+			    </form>
+			    <form id="signup_full">
 			      	<span>Sign Up</span>
-			      	<input placeholder="ID" />
-			     	<input placeholder="PASSWORD" />
+			      	<input type="text" name="userId" valueplaceholder="ID" />
+			     	<input type="text" name="userPassword" valueplaceholder="PASSWORD" />
 			      	<input placeholder="PASSWORD(REPEAT)" />
 			      	<div class="signup_buttons" id="cancel2"><span>Cancel</span></div>
 			      	<div class="signup_buttons"><span>Submit</span></div>
-			    </div>
+			    </form>
 			</div>
 		</div>
 
+
 		<script src="js/jquery-1.11.3.min.js"></script>
 		<script src="js/handlebars-v3.0.3.js"></script>
-		<script type="text/javascript" src="js/imageDisposer.js"></script>
+		<script type="text/javascript" src="js/ImageDisposer.js"></script>
 		<!-- [[Template]]] -->
 		<script id="bestpostingTemplate" type="text/x-handlebars-template">
 			<li data-bestpostingid="{{bestpostingid}}" data-postingid="{{postingid}}" data-postingsubject="{{postingsubject}}" data-postingtext="{{postingtext}}" data-postingpic="{{postingpic}}" data-postingview="{{postingview}}" data-postinglike="{{postinglike}}" data-postinghate="{{postinghate}}" data-bestpostingtime="{{bestpostingtime}}" data-userid="{{userid}}" data-useridname="{{useridname}}" data-usernickname="{{usernickname}}" data-userprofile="{{userprofile}}" data-userprofilepic="{{userprofilepic}}" data-userlevel="{{userlevel}}" data-userexp="{{userexp}}" class="posting">

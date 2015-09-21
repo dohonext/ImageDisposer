@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" data-framework="javascript">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>PhotoShake</title>
+	</head>
+	<body>
+	
+     
+    <form action="http://localhost:8000/photoshake/API/comment" enctype="application/x-www-form-urlencoded" method="POST">
+	  commentText: <input type="text" name="commentText" value><br>
+	  postingId: <input type="text" name="postingId" value><br>
+	  <input id="sb" type="submit" value="send" onclick='this.form.action="http://54.64.239.231:8080/photoshake/";'>
+	</form>
+	<button id="b1">Button</button>
+	<button id="b2">Button</button>
+  
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.js"></script>
+		<script id="addListElements" type="text/x-handlebars-template">
+		  	<li data-key="{{key}}" class="{{class}}">
+				<div class="view">
+					<input class="toggle" type="checkbox" {{checked}}>
+					<label>{{text}}</label>
+					<button class="destroy"></button>
+				</div>
+			</li>
+		</script>
+		<script>
+
+			$('#b1').click(function() {
+				var formData = $("form").serialize();
+	 			console.log(formData);
+
+				
+			});
+			$('#b2').click(function() {
+				$.post("http://localhost:8000/photoshake/API/comment",
+					JSON.stringify({commentText:"I like it!",postingId:30})
+					)
+			});
+		</script>
+	</body>
+</html>
+
+
+userId=asdasd&userPassword=asdasd
+
+
+$("#signin_full").click(function()
+		{
+			var formData = $("#signin_full").serialize();
+ 
+			$.ajax({
+	 					type : "POST",
+	 					url : "http://localhost:8000/photoshake/API/login",
+	 					cache : false,
+	 					data : formData
+			});
+		});

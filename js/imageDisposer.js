@@ -2,16 +2,17 @@
 
 
 var PhotoShakeMain = {
+	// TODO : stack 사용해서 PushPopState 직접 구현해보기.
+	// 이벤트에 따라 화면 상태값을 각각 글로벌변수에 스택으로 쌓아주고 뒤로가기 버튼 눌렀을 시 하나하나 꺼내줌. 없으면 알럿 띄워주기 혹은 아무것도 안하기.
 	init : function(){
 		this.getMainPage();
 		this.seeMoreBestposting();
 		this.seeMoreNewestposting();
-		//this.imageDisposer($("#bestposting"), $("body").width() - 55, 230, 5, 2);
-		//this.imageDisposer($("#newestposting"), $("body").width() - 55, 230, 5, 2);
 		this.addOnResizeWindowEvent();
 		this.addClickSignMenuEvent();
 		this.addClickLogoEvent();
 		this.addWideviewEvent();
+		this.addComment();
 	},
 	
 	imageDisposer : function(jqElement, boardWidth, boardHeightMax, imageMargin, lineLimit){
@@ -147,11 +148,14 @@ var PhotoShakeMain = {
 	},
 
 	addClickLogoEvent : function (){  
-		$("#logo").click(function(){
+		$("#logo").click(function(e){
 			var html = "<div id='bestBox'><div class='content_subject'><div class='content_subject_left' id='best'>BEST</div><div class='content_subject_right' id ='bestSeemore'>SeeMore</div></div><ul class='content' id='bestposting'></ul></div><div id='newestBox'><div id='blank'></div><div class='content_subject'><div class='content_subject_left' id='newest'>NEWEST</div><div class='content_subject_right' id ='newestSeemore'>SeeMore</div><div id='new_content_upload'>Upload</div></div><ul class='content' id='newestposting'></ul></div>";
 			$("#main").children().remove();
 			$("#main").append(html);
-			PhotoShakeMain.init();
+			PhotoShakeMain.getMainPage();
+			PhotoShakeMain.seeMoreBestposting();
+			PhotoShakeMain.seeMoreNewestposting();
+			//Event가 중복해서 등록되는걸 방지하기 위해서 PhotoShakeMain.init()을 하지 않고 지워지지 않는 돔은 선별적으로 뺌.
 		});
 	},
 
@@ -170,7 +174,6 @@ var PhotoShakeMain = {
 
 	getBestposting : function(){
 		PhotoShakeAjax.getBestposting(function(json){
-			
 			for (var i = 0; i < json.length ; i++) {
 				PhotoShakeMain.appendWithTemplateEngine("#bestpostingTemplate", "#bestposting", { 
 					bestpostingid : json[i].bestpostingid, postingid : json[i].postingid,
@@ -183,8 +186,16 @@ var PhotoShakeMain = {
 					userlevel : json[i].userlevel, userexp : json[i].userexp
 				});
 			}
-			PhotoShakeMain.imageDisposer($("#bestposting"), $("body").width() - 55, 230, 5, 2);
-
+			
+			// Excute imageDisposer() after all images loaded. -> TODO: refactoring & add to other functions too.
+			var imgLength = $("#bestposting li img").length;
+			var imgppp = 0;
+			$("#bestposting li img").load(function(){
+				imgppp++;
+				if (imgppp === imgLength){ 
+					PhotoShakeMain.imageDisposer($("#bestposting"), $("body").width() - 55, 230, 5, 2);
+				}
+			});
 		})
 	},
 
@@ -203,8 +214,15 @@ var PhotoShakeMain = {
 					userlevel : json[i].userlevel, userexp : json[i].userexp
 				});
 			}
-			PhotoShakeMain.imageDisposer($("#newestposting"), $("body").width() - 55, 230, 5, 2);
 
+			var imgLength = $("#newestposting li img").length;
+			var imgppp = 0;
+			$("#newestposting li img").load(function(){
+				imgppp++;
+				if (imgppp === imgLength){ 
+					PhotoShakeMain.imageDisposer($("#newestposting"), $("body").width() - 55, 230, 5, 2);
+				}
+			});
 		})
 	},
 
@@ -230,6 +248,14 @@ var PhotoShakeMain = {
 				PhotoShakeMain.imageDisposer($("#bestposting"), $("body").width() - 55, 230, 5);
 			})
 
+			var imgLength = $("#bestposting li img").length;
+			var imgppp = 0;
+			$("#bestposting li img").load(function(){
+				imgppp++;
+				if (imgppp === imgLength){ 
+					PhotoShakeMain.imageDisposer($("#bestposting"), $("body").width() - 55, 230, 5, 2);
+				}
+			});
 			//TODO : 더보기 버튼 append 'GET?page=2,3,4...'
 		});
 	},
@@ -257,30 +283,68 @@ var PhotoShakeMain = {
 				PhotoShakeMain.imageDisposer($("#newestposting"), $("body").width() - 55, 230, 5);
 			})
 			
+			var imgLength = $("#newestposting li img").length;
+			var imgppp = 0;
+			$("#newestposting li img").load(function(){
+				imgppp++;
+				if (imgppp === imgLength){ 
+					PhotoShakeMain.imageDisposer($("#newestposting"), $("body").width() - 55, 230, 5, 2);
+				}
+			});
 			//TODO : 더보기 버튼 append 'GET?page=2,3,4...'
 		});
 	},
 
 	addWideviewEvent : function(){
 		$("#main").on("click", "div  ul li", function(e) {  // 이렇게 이벤트 애드하면 어펜드 된 돔에도 이벤트 지속.
-			
-			//TODO : 데이터 받아서 어펜드 하는 부분 로직 추가(템플릿엔진 사용) 및 css 다듬기
+			$("#wideviewPicture").children().remove();
+			$("#wideviewDetails").children().remove();
+			//TODO : 데이터 받아서 어펜드 하는 부분 로직 추가(템플릿엔진 사용) 및 css 다듬기. comment 로딩 로직 추가.
 			var data = $(e.target.closest("li"));
 			
 
-			var html = "<img src='"+data.data("postingpic")+"'/>"
-			$("#wideviewPicture").append(html);
+			var imgsrc = "<img src='"+data.data("postingpic")+"'/>"
+			var details = "<span>"+
+						  "Subject : "+data.data("postingsubject")+"</br>"+
+						  "Author : "+data.data("useridname")+"</br>"+
+						  "Author prof : "+data.data("userprofile")+"</br>"+
+						  "Text : "+data.data("postingtext")+"</br>"+
+						  "Like : "+data.data("postinglike")+"</br>"+
+						  "Hate : "+data.data("postinghate")+"</br>"+
+						  "Time : "+data.data("postingtime")+"</br></span>";
+
+			$("#wideviewPicture").append(imgsrc);
+			$("#wideviewDetails").append(details);
 			$("#wideview").css("display","block");
+			PhotoShakeMain.loadComments(data.data("postingid"));
 		});
 		$("#wideview").on("click", "#closeWideview", function(){
 			$("#wideview").css("display","none");
+		});
+	},
+
+	loadComments : function(iPostingId){
+		PhotoShakeAjax.getComments(function(json){
+			console.log(json)  // TODO : append with template engine.
+		},iPostingId);
+	},
+
+	addComment : function(){
+		$("#submit1").click(function(){
+		    $.post("http://54.64.239.231:8080/photoshake/API/comment/",
+			    {
+			        commentText: "Donald Duck",
+			        postingId: "1"
+			    }
+		    );
+		    console.log("posted");
 		});
 	}
 
 }
 
 var PhotoShakeAjax = {
-	url : "http://localhost:8000/photoshake/API/",
+	url : "http://54.64.239.231:8080/photoshake/API/",
 	
 	init : function(){
 		
@@ -307,35 +371,18 @@ var PhotoShakeAjax = {
 		this.xhr(callback, "GET", this.url+APIUrl, true);
 	},
 
-	add : function(todo, callback){
-		var xhr = new XMLHttpRequest();
-		xhr.open("PUT", this.url+this.id, true);
-		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
-		xhr.addEventListener("load",function(e) {
-			callback(JSON.parse(xhr.responseText));
-		});
-		xhr.send("todo="+todo);
+	getComments : function(callback, iPostingID){
+		var APIUrl = "comment";
+		var queryString = "?postingId="+iPostingID
+		this.xhr(callback, "GET", this.url+APIUrl+queryString, true);
 	},
 
-	completed : function(param, callback){
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", this.url+this.id+param.key, true);
-		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
-		xhr.addEventListener("load",function(e) {
-			callback(JSON.parse(xhr.responseText));
-		});
-		xhr.send("completed="+param.completed);
-	},
-
-	remove : function(key, callback){
-		var xhr = new XMLHttpRequest();
-		xhr.open("DELETE", this.url+this.id+key, true);
-		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
-		xhr.addEventListener("load",function(e) {
-			callback(JSON.parse(xhr.responseText));
-		});
-		xhr.send();
+	getComments : function(callback, iPostingID){
+		var APIUrl = "comment";
+		var queryString = 
+		this.xhr(callback, "POST", this.url+APIUrl+queryString, true);
 	}
+
 }
 
 
